@@ -1,2 +1,2 @@
 # latipnime-v2
-Web Streaming Anime
+BETA VERSION (not responsive)
