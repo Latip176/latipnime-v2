@@ -133,6 +133,9 @@ document.addEventListener("DOMContentLoaded", () => {
             loadContent(dataType, getData(`${dataType === "stream" ? "view" : dataType}/?data=${getParamFromHash(url.hash)}`))
         } else if (["home", "ongoing", "genres"].includes(dataType)) {
             loadContent(dataType, getData(dataType));
+        } else if (dataType === "genres_m") {
+            const param = getParamFromHash(url.hash);
+            loadContent(dataType, getData(`genres/${param}`), param)
         } else if (dataType == "info") {
             loadContent(dataType, "");
         }
