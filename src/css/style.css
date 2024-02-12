@@ -411,3 +411,25 @@ body.loader-open {
 .search .search-title, .genres_m .genre-title {
     padding-bottom: 10px;
 }
+
+/* responsive */
+@media only screen and (min-width: 768px) {
+    .search .list-anime, .genres_m .list-anime {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .content .data-anime {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .content .slider img {
+        height: 30rem;
+    }
+    .navbar-top .nav-content div:nth-child(2) {
+        text-align: center;
+    }
+    .iframe iframe {
+        height: 30rem;
+    }
+    .navbar-bottom > .nav-content ul {
+        gap: 100px;
+    }
+}
