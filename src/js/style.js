@@ -7,14 +7,22 @@ const loader = document.querySelector(".load");
 /* hashchange */
 window.addEventListener("hashchange", () => {
     const url = new URL(window.location.href);
+    loadHash(url)
+});
+
+
+const loadHash = (url) => {
     const dataType = getDataFromHash(url.hash);
     if (["info", "stream"].includes(dataType)) {
         loadContent(dataType, getData(`${dataType === "stream" ? "view" : dataType}/?data=${getParamFromHash(url.hash)}`));
     } else if (dataType === "genres_m") {
         const param = getParamFromHash(url.hash);
         loadContent(dataType, getData(`genres/${param}`), param)
+    } else if(!dataType || ["home", "ongoing"].includes(dataType) || !window.location.hash) {
+        const hash = !dataType ? "home" : dataType;
+        loadContent(hash, getData(hash))
     }
-});
+}
 
 /* load content */
 function loadContent(dataType, data, x=null) {
@@ -90,15 +98,15 @@ function allowAll() {
 /* show load animation */
 function showLoad() {
     document.body.classList.add("loader-open");
-    loader.style.position = "relative";
-    loader.style.visibility = "visible";
+    loader.style.visibility = "visible"
+    document.querySelector("footer").style.marginTop = "100vh";
 }
 
 /* hidde load animation */
 function hideLoad() {
     document.body.classList.remove("loader-open");
-    loader.style.position = "fixed";
     loader.style.visibility = "hidden";
+    document.querySelector("footer").style.marginTop = "100px";
 }
 
 /* data hash */
@@ -118,12 +126,19 @@ navItems.forEach(item => {
     item.addEventListener("click", () => {
         const url = new URL(item.href);
         const dataType = dataMap[url.hash];
-        loadContent(dataType, !["about", "complete"].includes(dataType) ? getData(dataType) : "");
+        loadContent(dataType, !["about", "complete", "ongoing", "home"].includes(dataType) ? getData(dataType) : "");
     });
 });
 
 /* ContentLoaded */
 document.addEventListener("DOMContentLoaded", () => {
+    if(!window.location.hash) {
+        loadContent("home", getData("home"));
+    } else {
+        const url = new URL(window.location.href);
+        loadHash(url)
+    }
+    
     const search = document.querySelector(".fa-search");
     search.addEventListener("click", () => {
         const inp = document.querySelector(".nav-content input");
@@ -131,24 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
         search.style.color = "rgba(0,0,0,0.5)";
         inp.classList.add("open");
     });
-
-    if(!window.location.hash) {
-        loadContent("home", getData("home"));
-    } else {
-        removeChildAll();
-        const url = new URL(window.location.href);
-        const dataType = getDataFromHash(url.hash);
-        if (["info", "stream"].includes(dataType)) {
-            loadContent(dataType, getData(`${dataType === "stream" ? "view" : dataType}/?data=${getParamFromHash(url.hash)}`))
-        } else if (["home", "ongoing", "genres"].includes(dataType)) {
-            loadContent(dataType, getData(dataType));
-        } else if (dataType === "genres_m") {
-            const param = getParamFromHash(url.hash);
-            loadContent(dataType, getData(`genres/${param}`), param)
-        } else if (dataType == "info") {
-            loadContent(dataType, "");
-        }
-    }
     
     document.querySelector(".search-inp").addEventListener("keypress", (event) => {
         if (event.key === "Enter") {
