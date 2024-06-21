@@ -81,7 +81,7 @@ function generateData(data, location) {
     });
 
     if (location === "ongoing" && dd.data.next !== "None") {
-      const button = createElement("div", "btn-next", `<a href="javascript:void(0)" style="color: white; text-decoration: none; font-weight: bold;">Next <i class="fas fa-arrow-right"></i></a>`);
+      const button = createElement("div", "btn-next", `<a href="javascript:void(0)" style="color: white; text-decoration: none; font-weight: bold;">Show Mores <i class="fas fa-arrow-down"></i></a>`);
       elements.content.appendChild(button);
       handleNextButton(button, elements.content, dd.data.next, "ongoing", generateData);
     }
@@ -162,7 +162,7 @@ function generateGenresM(data, genre) {
     elements.genres_m.append(genre_title, list_anime);
 
     if (dd.next !== "None") {
-      const btn = createElement("div", "btn-next-genre", `<a href="javascript:void(0)" style="color: white; text-decoration: none; font-weight: bold;">Next <i class="fas fa-arrow-right"></i></a>`);
+      const btn = createElement("div", "btn-next-genre", `<a href="javascript:void(0)" style="color: white; text-decoration: none; font-weight: bold;">Show Mores <i class="fas fa-arrow-down"></i></a>`);
       btn.style.marginTop = "10px";
       elements.genres_m.appendChild(btn);
       handleNextButton(btn, elements.genres_m, dd.next, genre, generateGenresM);
@@ -198,5 +198,5 @@ export {
   generateStream,
   generateGenresM,
   generateSearch,
-  generateComplete
+  generateComplete,
 };
