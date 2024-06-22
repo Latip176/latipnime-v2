@@ -21,6 +21,8 @@ const loadHash = (url) => {
     } else if(!dataType || ["home", "ongoing"].includes(dataType) || !window.location.hash) {
         const hash = !dataType ? "home" : dataType;
         loadContent(hash, getData(hash))
+    } else if (dataType === "complete") {
+        loadContent(dataType, getData("complete"))
     }
 }
 
@@ -29,10 +31,10 @@ function loadContent(dataType, data, x=null) {
     removeChildAll();
     if (["home", "ongoing"].includes(dataType)) {
         generateData(data, dataType);
+    } else if(dataType === "complete") {
+        generateComplete(data)
     } else if (dataType === "about") {
         generateAbout();
-    } else if (dataType === "complete") {
-        generateComplete();
     } else if (dataType === "genres") {
         generateGenres(data, dataType);
     } else if (dataType === "genres_m") {

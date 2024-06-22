@@ -36,7 +36,8 @@ const handleNextButton = (button, content, next, location, dataFn) => {
   button.addEventListener("click", () => {
     document.body.classList.add("loader-open");
     content.removeChild(button);
-    if(location === "ongoing") dataFn(getData(`ongoing/?next=${next}`), location);
+    if (location === "ongoing") dataFn(getData(`ongoing/?next=${next}`), location);
+    else if (location === "complete") dataFn(getData(`complete/?next=${next}`))
     else dataFn(getData(`genres/${location}/${next}`), location)
   });
 };
@@ -55,15 +56,30 @@ function generateGenres(data) {
 /* generate about content */
 function generateAbout() {
   const text_about = createElement("p", "text-about");
-  appendText(text_about, "LatipNime adalah sebuah Web / Aplikasi untuk streaming Anime Gratis dan tanpa Iklan. Di buat oleh Latif Harkat (Latip176). Hubungi 083870396203 (WhatsApp) jika anda menemukan sebuah Bug atau Error");
+  appendText(text_about, "KANIME adalah sebuah Web / Aplikasi untuk streaming Anime Gratis dan tanpa Iklan. Di buat oleh Latif Harkat (Latip176).");
   elements.about.appendChild(text_about);
 }
 
 /* generate complete anime content (coomingsoon) */
-function generateComplete() {
-  const text_about = createElement("p", "text-about");
-  appendText(text_about, "COOMINGSOON");
-  elements.about.appendChild(text_about);
+function generateComplete(data) {
+  elements.danime.style.position = "relative";
+  document.body.classList.remove("loader-open");
+  data.then(dd => {
+    const dataList = dd.data.data_anime;
+    dataList.forEach(dat => {
+      const slide = createElement("div", "title", `<img src="${dat.cover}" alt="${dat.judul}"><p class="judul"><a href="#info?data=${dat.data}" style="color: white; text-decoration: none;">${dat.judul}</a></p>`);
+      elements.slider.appendChild(slide);
+
+      const anime = createElement("div", "anime", `<div class="cover"><img src="${dat.cover}" alt="${dat.judul}"><p id="release">${dat.release}</p><p id="episode">${dat.episode}</p></div><p class="judul"><a href="#info?data=${dat.data}">${dat.judul}</a></p>`);
+      elements.content.appendChild(anime);
+    });
+
+    if (dd.data.next !== "None") {
+      const button = createElement("div", "btn-next", `<a href="javascript:void(0)" style="color: white; text-decoration: none; font-weight: bold;">Show Mores <i class="fas fa-arrow-down"></i></a>`);
+      elements.content.appendChild(button);
+      handleNextButton(button, elements.content, dd.data.next, "complete", generateComplete);
+    }
+  });
 }
 
 /* generate home and ongoing anime content */
