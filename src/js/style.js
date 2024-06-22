@@ -142,12 +142,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     const search = document.querySelector(".fa-search");
-    search.addEventListener("click", () => {
-        const inp = document.querySelector(".nav-content input");
-        search.style.visibility = "hidden";
-        search.style.color = "rgba(0,0,0,0.5)";
-        inp.classList.add("open");
-    });
+    const close = document.querySelector(".fa-times");
+    const inp = document.querySelector(".nav-content input");
+    
+    function toggleSearch(action) {
+        const isSearch = action === "search";
+        search.classList.toggle("hidden", isSearch);
+        close.classList.toggle("visible", isSearch);
+        inp.classList.toggle("open", isSearch);
+
+        if (isSearch) {
+            inp.style.visibility = "visible";
+            close.style.visibility = "visible";
+            setTimeout(() => {
+                search.style.visibility = "hidden";
+            }, 300);
+        } else {
+            search.style.visibility = "visible";
+            setTimeout(() => {
+                inp.style.visibility = "hidden";
+                close.style.visibility = "hidden";
+            }, 300);
+        }
+    }
+
+    search.addEventListener("click", () => toggleSearch("search"));
+    close.addEventListener("click", () => toggleSearch("close"));
     
     document.querySelector(".search-inp").addEventListener("keypress", (event) => {
         if (event.key === "Enter") {
