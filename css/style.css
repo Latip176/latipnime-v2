@@ -1,0 +1,513 @@
+* {
+    padding: 0;
+    margin: 0;
+    -webkit-text-size-adjust: 100%;
+    font-family: Arial, 'Sans-Serif';
+}
+
+body {
+    position: relative;
+    background: #1c1c1c;
+}
+
+/* navbar-top */
+.navbar-top {
+    width: 100%;
+    height: 60px;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    z-index: 9999;
+}
+.navbar-top > .nav-content {
+    width: 100%;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px;
+    position: relative;
+    align-items: center;
+    justify-items: center;
+}
+.navbar-top > .nav-content input {
+    outline: none;
+    border: none;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.navbar-top > .nav-content input.open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.icon .fa-times {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.icon .fa-search {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.icon .fa-times.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.icon .fa-search.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+.navbar-top > .nav-content .icon i:nth-child(2) {
+    visibility: hidden;
+}
+.navbar-top > .nav-content div:nth-child(2) {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    margin-right: 20px;
+}
+.navbar-top > .nav-content i {
+    font-weight: bold;
+    position: absolute;
+    font-size: 20px;
+}
+.navbar-top > .nav-content div:nth-child(1) {
+    text-align: left;
+    padding-left: 10px;
+}
+/* end navbar-top */
+
+/* navbar-bottom */
+.navbar-bottom {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    background: #1c1c1c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.navbar-bottom > .nav-content ul {
+    display: grid;
+    gap: 50px;
+    place-items: center;
+    grid-template-columns: repeat(5, 1fr);
+}
+.navbar-bottom .nav-content ul li {
+    display: inline;
+    text-decoration: none;
+}
+.navbar-bottom .nav-content ul li a {
+    text-decoration: none;
+    color: white;
+}
+.navbar-bottom .nav-content ul li a.active {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
+    pointer-events: none;
+    font-size: 20px;
+}
+/* end navbar-bottom */
+
+/* slider */
+.slider {
+    width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    scroll-snap-type: x mandatory;
+}
+
+.title {
+    display: inline-block;
+    width: 100%;
+}
+
+body > .content {
+    padding-top: 60px;
+}
+
+.content .slider img {
+    width: 100%;
+    height: 15rem;
+    display: inline-block;
+    object-fit: cover;
+    scroll-snap-align: start;
+}
+/* end slider */
+
+/* home and ongoing */
+.content .data-anime {
+    width: 100%;
+    padding-top: 30px;
+    display: grid;
+    position: absolute;
+    gap: 30px;
+    grid-template-columns: repeat(2, 1fr);
+}
+.data-anime .anime {
+    text-align: center;
+    height: auto;
+}
+.data-anime .anime img {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+}
+.data-anime .anime .cover {
+    position: relative;
+    display: inline-block;
+}
+.data-anime .anime .cover p {
+    position: absolute;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+}
+.content .btn-next {
+    position: absolute;
+    bottom: -50px;
+    left: 20px;
+}
+.slider .title p {
+    position: relative;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    font-weight: bold;
+    bottom: 0;
+    right: 0;
+}
+.data-anime .anime #release {
+    top: 0;
+    left: 0;
+}
+.data-anime .anime #episode {
+    bottom: 0;
+    right: 0;
+}
+.data-anime .anime .judul {
+    text-align: center;
+}
+.data-anime .anime .judul a {
+    color: white;
+    height: auto;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+/* end home and ongoing */
+
+/* load animation */
+body.loader-open {
+    overflow: hidden;
+}
+.load {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: fixed;
+    z-index: 1001;
+    visibility: hidden;
+}
+.loader {
+  width: 40px;
+  height: 20px;
+  background: #F31D3E;
+  position: fixed;
+  animation: l19-0 1.5s infinite linear;
+}
+.loader:before,
+.loader:after {
+   content:"";
+   position: absolute;
+   background: inherit; 
+   bottom: 100%;
+   width: 50%;
+   height: 100%;
+   animation: inherit;
+   animation-name: l19-1;
+}
+.loader:before {
+  left:0;
+  --s:-1,1;
+}
+.loader:after {
+  right:0;
+}
+@keyframes l19-0 {
+   0%,30%   {transform:translateY(0)     scaleY(1)}
+   49.99%   {transform:translateY(-50%)  scaleY(1)}
+   50%      {transform:translateY(-50%)  scaleY(-1)}
+   70%,100% {transform:translateY(-100%) scaleY(-1)}
+}
+@keyframes l19-1 {
+   0%,10%,90%,100% {transform: scale(var(--s,1)) translate(0)}
+   30%,70%         {transform: scale(var(--s,1)) translate(20px)}
+   50%             {transform: scale(var(--s,1)) translate(20px,20px)}
+}
+/* end load animation */
+
+/* about */
+.about .text-about {
+    padding: 20px;
+    color: rgba(255,255,255,0.5);
+    font-size: 20px;
+}
+/* end about */
+
+/* genres */
+.genres {
+    padding: 10px;
+    padding-top: 50px;
+    position: absolute;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+}
+.genres div a {
+    color: #F5F5FA;
+    text-decoration: none;
+}
+.genres div {
+    font-weight: bold;
+    width: 110px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #F5F5FA;
+    background: #343a40;
+    border-radius: 10px 0 10px 10px;
+    cursor: pointer;
+}
+.genres div:hover, .genres div:focus {
+    background: #495057;
+}
+/* end genres */
+
+/* info */
+.info {
+    color: #F5F5FA;
+    position: relative;
+}
+.info .cover {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.info .cover #bg {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+.info .cover #cover {
+    position: absolute;
+    top: 100px;
+    width: 225px;
+    height: 315px;
+    object-fit: cover;
+    border-radius: 10px;
+    filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.5));
+}
+.info .info div {
+    gap: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.3);
+}
+.info .judul {
+    margin-top: 20px;
+}
+.info .info span {
+    padding: 15px;
+    font-weight: bold;
+}
+.info .info div span:nth-child(2) {
+    text-align: right;
+    color: rgba(255, 255, 255, 0.5);
+}
+.info .sinopsis, .info .data-episode {
+    height: auto;
+    margin-top: 30px;
+    padding: 0 10px;
+}
+.info .sinopsis p {
+    padding-top: 10px;
+}
+.info .data-episode .content {
+    margin-top: 30px;
+}
+.info .data-episode .content div {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+}
+.info .data-episode .content div a{
+    color: white;
+    font-weight: bold;
+    padding-top: 10px;
+}
+.info .data-episode .content div a:visited {
+    color: rgba(255,255,255,0.3);
+}
+/* end info */
+
+/* stream */
+.stream {
+    width: 100%;
+}
+.iframe iframe {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+}
+.stream .content {
+    padding-top: 20px;
+}
+.stream .content h3 {
+    color: #F5F5FA;
+    text-align: center;
+}
+.stream .button {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    padding-top: 30px;
+}
+.stream .button a {
+    color: rgba(255,255,255,0.4);
+    font-weight: bold;
+    text-decoration: none;
+}
+.stream .button a:hover{
+    color: white;
+}
+/* end stream */
+
+/* genres_m */
+.genres_m {
+    width: 80%;
+    margin: 20px auto;
+    color: #F5F5FA;
+    position: absolute;
+}
+.genres_m .list-anime {
+    display: grid;
+    gap: 20px;
+    place-items: center;
+}
+.genres_m .list-anime .anime {
+    width: 100%;
+    height: auto;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+.genres_m .list-anime .anime .content h3 a {
+    color: #F5F5FA;
+    text-decoration: none;
+}
+.genres_m .list-anime .anime .content p span {
+    color: rgba(255,255,255,0.5);
+}
+.genres_m .list-anime .anime .content p {
+    word-wrap: break-word;
+}
+.genres_m .list-anime .anime .cover img {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+}
+/* end genres_m */
+
+/* search */
+.search {
+    width: 80%;
+    margin: 20px auto;
+    color: #F5F5FA;
+    position: absolute;
+}
+.search .list-anime {
+    display: grid;
+    gap: 20px;
+    place-items: center;
+}
+.search .list-anime .anime {
+    width: 100%;
+    height: auto;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+.search .list-anime .anime .content h3 a {
+    color: #F5F5FA;
+    text-decoration: none;
+}
+.search .list-anime .anime .content p span {
+    color: rgba(255,255,255,0.5);
+}
+.search .list-anime .anime .content p {
+    word-wrap: break-word;
+}
+.search .list-anime .anime .cover img {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+}
+/* end search */
+
+.search .search-title, .genres_m .genre-title {
+    padding-bottom: 10px;
+}
+
+/* responsive */
+@media only screen and (min-width: 768px) {
+    .search .list-anime, .genres_m .list-anime {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .content .data-anime {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .content .slider img {
+        height: 20rem;
+    }
+    .navbar-top .nav-content div:nth-child(2) {
+        text-align: center;
+    }
+    .iframe iframe {
+        height: 30rem;
+    }
+    .navbar-bottom > .nav-content ul {
+        gap: 100px;
+    }
+}
+/* end responsive */
+
+/* footer */
+.footer {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
