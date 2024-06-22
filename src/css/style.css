@@ -14,7 +14,7 @@ body {
 .navbar-top {
     width: 100%;
     height: 60px;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.4);
     display: flex;
     align-items: center;
     position: fixed;
@@ -27,25 +27,60 @@ body {
     grid-template-columns: repeat(2, 1fr);
     padding: 10px;
     position: relative;
+    align-items: center;
+    justify-items: center;
 }
 .navbar-top > .nav-content input {
     outline: none;
     border: none;
     padding: 5px;
+    margin: 5px;
     border-radius: 5px;
     visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
+
 .navbar-top > .nav-content input.open {
     visibility: visible;
+    opacity: 1;
+}
+
+.icon .fa-times {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.icon .fa-search {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.icon .fa-times.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.icon .fa-search.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+.navbar-top > .nav-content .icon i:nth-child(2) {
+    visibility: hidden;
+}
+.navbar-top > .nav-content div:nth-child(2) {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    margin-right: 20px;
 }
 .navbar-top > .nav-content i {
-    color: white;
-    position: absolute;
-    top: 15px;
-    right: 15px;
     font-weight: bold;
+    position: absolute;
+    font-size: 20px;
 }
-.navbar-top > .nav-content div {
+.navbar-top > .nav-content div:nth-child(1) {
     text-align: left;
     padding-left: 10px;
 }
@@ -57,7 +92,7 @@ body {
     height: 80px;
     position: fixed;
     bottom: 0;
-    background: rgba(0,0,0,0.7);
+    background: #1c1c1c;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,6 +115,7 @@ body {
 .navbar-bottom .nav-content ul li a.active {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
     pointer-events: none;
+    font-size: 20px;
 }
 /* end navbar-bottom */
 
@@ -184,12 +220,12 @@ body.loader-open {
     height: 100vh;
     position: fixed;
     z-index: 1001;
-    visibility: none;
+    visibility: hidden;
 }
 .loader {
   width: 40px;
   height: 20px;
-  background: orange;
+  background: #F31D3E;
   position: fixed;
   animation: l19-0 1.5s infinite linear;
 }
@@ -449,7 +485,7 @@ body.loader-open {
         grid-template-columns: repeat(3, 1fr);
     }
     .content .slider img {
-        height: 30rem;
+        height: 20rem;
     }
     .navbar-top .nav-content div:nth-child(2) {
         text-align: center;
